@@ -1,0 +1,5 @@
+# pg_simdjson extension
+comment = 'Parse json using simdjson library'
+default_version = '0.1'
+module_pathname = '$libdir/pg_simdjson'
+relocatable = true
