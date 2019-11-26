@@ -18,8 +18,8 @@ behaviour is parging of large numbers, e.g.
 SELECT '9223372036854775808'::jsonb;
 ```
 
-will be successfully parsed, while simdjson rejects that (see more in Parser
-Architechture and Implementation section of [1])
+will be successfully parsed, while simdjson rejects that (see more in [Parser
+Architechture and Implementation][1] section)
 
 Here are results of parsing json with native PostgreSQL implementation and
 simdjson. Test was performed in the benchmark environment on a pinned cpu
@@ -28,4 +28,4 @@ documents, each document is about 1.6 kB.
 
 ![benchmark](pg_simdjson.png?raw=true "Benchmark")
 
-[1][https://arxiv.org/pdf/1902.08318.pdf]
+[1]: https://arxiv.org/pdf/1902.08318.pdf
