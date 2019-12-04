@@ -11,15 +11,7 @@ A prototype for an extension, that generates jsonb via [simdjson](https://github
 ```
 
 All the tests from the original JSONB implementation are passing, but there is
-an obvious difference in reported error messages. The only difference in
-behaviour is parsing of large numbers, e.g.
-
-```
-SELECT '9223372036854775808'::jsonb;
-```
-
-will be successfully parsed, while simdjson rejects that (see more in [Parser
-Architecture and Implementation][1] section)
+an obvious difference in reported error messages.
 
 Here are results of parsing json with native PostgreSQL implementation and
 simdjson. Test was performed in the benchmark environment on a pinned cpu

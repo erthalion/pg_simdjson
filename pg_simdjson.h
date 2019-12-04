@@ -22,6 +22,7 @@ extern "C" {
 
 	const char *Errors[] = {
 		"No errors",
+		"No errors and buffer still has more data",
 		"This ParsedJson can't support a document that big",
 		"Error allocating memory, we're most likely out of memory",
 		"Something went wrong while writing to the tape",

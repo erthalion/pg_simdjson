@@ -77,10 +77,26 @@ void toJsonb(simdjson::ParsedJson::Iterator &pjh, JsonbInState *result,
 		}
 		else if (pjh.is_integer())
 		{
-			Datum d = Int32GetDatum(pjh.get_integer());
+			Datum d = Int64GetDatum(pjh.get_integer());
 
 			v.type = jbvNumeric;
-			v.val.numeric = DatumGetNumeric(DirectFunctionCall1(int4_numeric, d));
+			v.val.numeric = DatumGetNumeric(DirectFunctionCall1(int8_numeric, d));
+		}
+		else if (pjh.is_unsigned_integer())
+		{
+			uint64 num = pjh.get_unsigned_integer() ^ (1UL << 63);
+			Datum d = UInt64GetDatum(num);
+			Numeric signed_num;
+			Numeric diff = DatumGetNumeric(DirectFunctionCall1(
+										   int8_numeric,
+										   Int64GetDatum(-1UL << 63)));
+
+			v.type = jbvNumeric;
+			signed_num = DatumGetNumeric(DirectFunctionCall1(int8_numeric, d));
+			v.val.numeric = DatumGetNumeric(DirectFunctionCall2(
+											numeric_sub,
+											NumericGetDatum(signed_num),
+											NumericGetDatum(diff)));
 		}
 		else if (pjh.is_string())
 		{
